@@ -42,7 +42,12 @@ public abstract class Post {
         }
     }
 
-    private final String POST_URL = "http://www.tumblr.com/api/write";
+    private String postUrl = "http://www.tumblr.com/api/write";
+
+    public void setPostUrl(String postUrl) {
+        this.postUrl = postUrl;
+    }
+
     MultipartEntity entity;
     private String email;
     private String password;
@@ -71,7 +76,7 @@ public abstract class Post {
             throw new NoCredentialsException();
         }
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost request = new HttpPost(POST_URL);
+        HttpPost request = new HttpPost(postUrl);
         request.setEntity(entity);
         HttpResponse response = httpclient.execute(request);
         return response.getStatusLine().getStatusCode();
@@ -87,15 +92,8 @@ public abstract class Post {
      */
     public int postToTumblr(String postId) throws NoCredentialsException, ClientProtocolException,
             IOException {
-        if (email == null || password == null) {
-            throw new NoCredentialsException();
-        }
         entity.addPart("post-id", new StringBody(postId));
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost request = new HttpPost(POST_URL);
-        request.setEntity(entity);
-        HttpResponse response = httpclient.execute(request);
-        return response.getStatusLine().getStatusCode();
+        return postToTumblr();
     }
 
     /**
