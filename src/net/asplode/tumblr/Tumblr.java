@@ -376,38 +376,6 @@ public class Tumblr {
 
     /**
      * @param id
-     *            Post ID to reblog
-     * @param key
-     *            Reblog key of the post to be reblogged
-     * @param comment
-     *            Comment to include with the reblog
-     * @return Status of the request
-     * @throws NoBlogException
-     * @throws OAuthMessageSignerException
-     * @throws OAuthExpectationFailedException
-     * @throws OAuthCommunicationException
-     * @throws ClientProtocolException
-     * @throws IllegalStateException
-     * @throws IOException
-     * @throws JSONException
-     */
-    public JSONObject reblogPost(String id, String key, String comment) throws NoBlogException,
-            OAuthMessageSignerException, OAuthExpectationFailedException,
-            OAuthCommunicationException, ClientProtocolException, IllegalStateException,
-            IOException, JSONException {
-        if (blog == null) {
-            throw new NoBlogException();
-        }
-        params.add(new BasicNameValuePair("id", id));
-        params.add(new BasicNameValuePair("reblog_key", key));
-        params.add(new BasicNameValuePair("comment", comment));
-        String url = BASE_URL + "/blog/" + blog + "/post/reblog";
-        JSONObject result = OAuthPost(url);
-        return result;
-    }
-
-    /**
-     * @param id
      *            Post ID to delete.
      * @return Status of the request
      * @throws NoBlogException
