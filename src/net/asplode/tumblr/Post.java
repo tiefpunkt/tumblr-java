@@ -149,6 +149,17 @@ public abstract class Post {
     }
 
     /**
+	 * @param date
+	 *            The post date, if different from now, in the blog's timezone.
+	 *            Most unambiguous formats are accepted, such as '2007-12-01
+	 *            14:50:02'. Dates may not be in the future.
+	 * @throws UnsupportedEncodingException
+	 */
+    public void setDate(String date) throws UnsupportedEncodingException {
+        entity.addPart("date", new StringBody(date));
+    }
+    
+    /**
      * @param slug
      *            Custom string to appear in the post's URL
      * @throws UnsupportedEncodingException
